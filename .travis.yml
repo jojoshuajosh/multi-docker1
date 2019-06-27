@@ -10,10 +10,10 @@ script:
   - docker run jojoshuajosh/react-test npm test -- --coverage
        
 after_succes:
-  - docker build -t jojoshuajosh/multi_client ./client
-  - docker build -t jojoshuajosh/multi_nginx ./nginx
-  - docker build -t jojoshuajosh/multi_server ./server
-  - docker build -t jojoshuajosh/multi_worker ./worker
+  - docker build -t jojoshuajosh/multi_client /Users/joshuawork/Documents/Docker/complex/client
+  - docker build -t jojoshuajosh/multi_nginx /Users/joshuawork/Documents/Docker/complex/nginx
+  - docker build -t jojoshuajosh/multi_server /Users/joshuawork/Documents/Docker/complex/server
+  - docker build -t jojoshuajosh/multi_worker /Users/joshuawork/Documents/Docker/complex/worker
 
   
   # login to docker cli 123
