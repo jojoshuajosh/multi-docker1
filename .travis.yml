@@ -18,7 +18,7 @@ after_succes:
   
   # login to docker cli 123
   #- echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin 
-  - echo "$DOCKER_PASSWORD1" | docker login -u "$DOCKER_ID1" --password-stdin    
+  - echo "$DOCKER_PASS" | docker login -u "$DOCKER_USERNAME" --password-stdin    
   #take those images and push them to docker hub
   - docker push jojoshuajosh/multi_client 
   - docker push jojoshuajosh/multi_nginx 
