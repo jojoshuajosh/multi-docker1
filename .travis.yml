@@ -3,11 +3,11 @@ services:
   - docker 
 
 before_install:
-  - docker build -t jojoshuajosh/multi-react1 -f ./client/Dockerfile.dev ./client
+  - docker build -t jojoshuajosh/react-test -f ./client/Dockerfile.dev ./client
 
 script:
-  - docker run -e CI=true jojoshuajosh/multi-react1 npm run test -- --coverage --watchAll=false
-  #- docker run jojoshuajosh/multi-react1 npm test -- --coverage
+  #- docker run -e CI=true jojoshuajosh/test-react npm run test -- --coverage --watchAll=false
+  - docker run jojoshuajosh/react-test npm test -- --coverage
        
 after_succes:
   - docker build -t jojoshuajosh/multi_client ./client
