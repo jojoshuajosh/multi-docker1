@@ -1,23 +1,26 @@
 sudo: required
 services:
-  - docker
+  - docker 
+
 before_install:
-  - docker build -t jojoshuajosh/react-client-test -f ./client/Dockerfile.dev ./client
+  - docker build -t jojoshuajosh/react-test -f ./client/Dockerfile.dev ./client
 
 script:
-  - docker run jojoshuajosh/react-client-test npm test -- --coverage
+  #- docker run -e CI=true jojoshuajosh/test-react npm run test -- --coverage --watchAll=false
+  - docker run jojoshuajosh/react-test npm test -- --coverage
+       
+after_succes:
+  - docker build -t jojoshuajosh/multi_client ./client
+  - docker build -t jojoshuajosh/multi_nginx -f ./nginx/Dockerfile.dev ./nginx
+  - docker build -t jojoshuajosh/multi_server ./server
+  - docker build -t jojoshuajosh/multi_worker ./worker
 
-after_success:
-  - docker build -t jojoshuajosh/complex-client ./client
-  - docker build -t jojoshuajosh/complex-nginx -f ./nginx/Dockerfile.dev ./nginx
-  - docker build -t jojoshuajosh/complex-server ./server
-  - docker build -t jojoshuajosh/complex-worker ./worker
+  #- echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin 
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin  
+   
+  #take those images and push them to docker hub
+  - docker push jojoshuajosh/multi_client
+  - docker push jojoshuajosh/multi_nginx
+  - docker push jojoshuajosh/multi_server 
+  - docker push jojoshuajosh/multi_worker
 
-  # Login into docker hub
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-
-  # push images to docker hub
-  - docker push jojoshuajosh/complex-client
-  - docker push jojoshuajosh/complex-nginx
-  - docker push jojoshuajosh/complex-server
-  - docker push jojoshuajosh/complex-worker
